@@ -8,11 +8,12 @@ use URI::Escape;
 use Data::Pageset;
 use Template;
 use Search::Tools;
+use Search::Tools::XML;
 use Time::HiRes qw( gettimeofday tv_interval );
 
 use base qw( Class::Accessor::Fast );
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 our $Props = 'swishrank,swishreccount,swishdocpath,swishtitle,swishdescription';
 our $Server  = 'http://localhost/swished/';
 our %Headers = ();                           # cache from index on first connect
@@ -337,7 +338,7 @@ sub _init
         # TODO a filter() callback?
         # TODO build this =/: opt into swish itself
         my $q = $self->q;
-        $q =~ s,\=,:,g;
+        $q =~ s,:,=,g;
         $self->q($q);
     }
 
